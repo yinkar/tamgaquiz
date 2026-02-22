@@ -43,7 +43,7 @@ class CharacterGroup extends Component {
     >
       <span className={this.props.selected ?
           'glyphicon glyphicon-small glyphicon-check' :
-          'glyphicon glyphicon-small glyphicon-unchecked'}></span> {this.state.shownChars}
+          'glyphicon glyphicon-small glyphicon-unchecked'}></span> <span dir="ltr">{this.state.shownChars}</span>
       </div>
     );
   }
