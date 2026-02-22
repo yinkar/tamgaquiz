@@ -47,7 +47,6 @@ class GameContainer extends Component {
               stage={this.state.stage}
               isLocked={this.state.isLocked}
               lockStage={this.lockStage}
-              rtlMode={this.props.rtlMode}
             />
           }
           { this.props.gameState==='game' &&
@@ -57,7 +56,6 @@ class GameContainer extends Component {
                 stage={this.state.stage}
                 isLocked={this.state.isLocked}
                 lockStage={this.lockStage}
-                rtlMode={this.props.rtlMode}
               />
           }
         </div>

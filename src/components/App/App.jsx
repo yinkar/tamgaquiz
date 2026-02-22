@@ -7,11 +7,7 @@ import { removeHash } from '../../data/helperFuncs';
 const options = {};
 
 class App extends Component {
-  state = { gameState: 'chooseCharacters', rtlMode: false };
-
-  toggleRtl = () => {
-    this.setState({ rtlMode: !this.state.rtlMode });
-  }
+  state = { gameState: 'chooseCharacters' };
 
   startGame = () => {
     this.setState({gameState: 'game'});
@@ -42,8 +38,6 @@ class App extends Component {
         <Navbar
           gameState={this.state.gameState}
           handleEndGame={this.endGame}
-          rtlMode={this.state.rtlMode}
-          toggleRtl={this.toggleRtl}
         />
         <div className="outercontainer">
           <div className="container game">
@@ -51,7 +45,6 @@ class App extends Component {
               gameState={this.state.gameState}
               handleStartGame={this.startGame}
               handleEndGame={this.endGame}
-              rtlMode={this.state.rtlMode}
             />
           </div>
         </div>

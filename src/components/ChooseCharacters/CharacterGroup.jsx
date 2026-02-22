@@ -12,7 +12,7 @@ class CharacterGroup extends Component {
     let strKanaCharacters = '';
     Object.keys(this.props.characters).map(character => {
       strRomajiCharacters+=this.props.characters[character][0]+' · ';
-      strKanaCharacters+=character+' · ';
+      strKanaCharacters+='\u200E'+character+'\u200E'+' · ';
     });
     strRomajiCharacters = strRomajiCharacters.slice(0, -2);
     strKanaCharacters = strKanaCharacters.slice(0, -2);
@@ -43,7 +43,7 @@ class CharacterGroup extends Component {
     >
       <span className={this.props.selected ?
           'glyphicon glyphicon-small glyphicon-check' :
-          'glyphicon glyphicon-small glyphicon-unchecked'}></span> <span dir={this.props.rtlMode ? 'rtl' : 'ltr'}>{this.state.shownChars}</span>
+          'glyphicon glyphicon-small glyphicon-unchecked'}></span> <span dir="ltr">{this.state.shownChars}</span>
       </div>
     );
   }
