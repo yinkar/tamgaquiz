@@ -5,7 +5,7 @@
 //
 // Consonants marked ¹ = back/heavy vowel context (a, ı, o, u)
 // Consonants marked ² = front/light vowel context (e, i, ö, ü)
-// Transliteration: Türkçe klavyeye uygun — ç, ş, ng, ök, ok, ik
+// Transliteration: Türkçe klavyeye uygun — ab/ba, eb/be, ç, ş, ng
 
 export const tamgaDictionary = {
   'orkhon': {
@@ -19,40 +19,40 @@ export const tamgaDictionary = {
 
     // Kalın ünsüzler (back vowel: a, ı, o, u)
     'o_group2': { characters: {
-      '𐰉': ['b'],
-      '𐰑': ['d'],
-      '𐰍': ['g'],
-      '𐰴': ['k'],
+      '𐰉': ['ab', 'ba'],
+      '𐰑': ['ad', 'da'],
+      '𐰍': ['ag', 'ga'],
+      '𐰴': ['ak', 'ka'],
     }},
     'o_group3': { characters: {
-      '𐰞': ['l'],
-      '𐰣': ['n'],
-      '𐰺': ['r'],
-      '𐰽': ['s'],
+      '𐰞': ['al', 'la'],
+      '𐰣': ['an', 'na'],
+      '𐰺': ['ar', 'ra'],
+      '𐰽': ['as', 'sa'],
     }},
     'o_group4': { characters: {
-      '𐱃': ['t'],
-      '𐰖': ['y'],
+      '𐱃': ['at', 'ta'],
+      '𐰖': ['ay', 'ya'],
       '𐰸': ['ok'],
       '𐰶': ['ik'],
     }},
 
     // İnce ünsüzler (front vowel: e, i, ö, ü)
     'o_group5': { characters: {
-      '𐰋': ['b'],
-      '𐰓': ['d'],
-      '𐰏': ['g'],
-      '𐰚': ['k'],
+      '𐰋': ['eb', 'be'],
+      '𐰓': ['ed', 'de'],
+      '𐰏': ['eg', 'ge'],
+      '𐰚': ['ek', 'ke'],
     }},
     'o_group6': { characters: {
-      '𐰠': ['l'],
-      '𐰤': ['n'],
-      '𐰼': ['r'],
-      '𐰾': ['s'],
+      '𐰠': ['el', 'le'],
+      '𐰤': ['en', 'ne'],
+      '𐰼': ['er', 're'],
+      '𐰾': ['es', 'se'],
     }},
     'o_group7': { characters: {
-      '𐱅': ['t'],
-      '𐰘': ['y'],
+      '𐱅': ['et', 'te'],
+      '𐰘': ['ey', 'ye'],
       '𐰜': ['ök'],
       '𐰲': ['ç'],
     }},
@@ -95,28 +95,28 @@ export const tamgaDictionary = {
 
     // Kalın ünsüzler
     'y_group2': { characters: {
-      '𐰊': ['b'],
-      '𐰒': ['d'],
-      '𐰎': ['g'],
-      '𐰵': ['k'],
+      '𐰊': ['ab', 'ba'],
+      '𐰒': ['ad', 'da'],
+      '𐰎': ['ag', 'ga'],
+      '𐰵': ['ak', 'ka'],
     }},
     'y_group3': { characters: {
-      '𐰟': ['l'],
-      '𐰻': ['r'],
+      '𐰟': ['al', 'la'],
+      '𐰻': ['ar', 'ra'],
       '𐰹': ['ok'],
       '𐰷': ['ik'],
     }},
 
     // İnce ünsüzler
     'y_group4': { characters: {
-      '𐰌': ['b'],
-      '𐰐': ['g'],
-      '𐰛': ['k'],
-      '𐰥': ['n'],
+      '𐰌': ['eb', 'be'],
+      '𐰐': ['eg', 'ge'],
+      '𐰛': ['ek', 'ke'],
+      '𐰥': ['en', 'ne'],
     }},
     'y_group5': { characters: {
-      '𐰗': ['y'],
-      '𐰙': ['y'],
+      '𐰗': ['ay', 'ya'],
+      '𐰙': ['ey', 'ye'],
       '𐰝': ['ök'],
       '𐰳': ['ç'],
     }},
