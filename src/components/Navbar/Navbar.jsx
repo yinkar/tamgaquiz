@@ -18,6 +18,13 @@ class Navbar extends Component {
                 ) : <li id="nav-kanaquiz"><p className="nav navbar-text">Tamga Quiz · 𐱅𐰢𐰍𐰀</p></li>
               }
             </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <a href="javascript:;" onClick={this.props.toggleRtl} title={this.props.rtlMode ? 'Soldan sağa (LTR) moduna geç' : 'Sağdan sola (RTL) moduna geç'}>
+                  {this.props.rtlMode ? '←LTR' : 'RTL→'}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
       </nav>

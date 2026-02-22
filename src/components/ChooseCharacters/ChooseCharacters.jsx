@@ -178,6 +178,7 @@ class ChooseCharacters extends Component {
           selected={this.isSelected(groupName)}
           characters={thisScript[groupName].characters}
           handleToggleSelect={this.toggleSelect}
+          rtlMode={this.props.rtlMode}
         />);
       }
     });

@@ -227,7 +227,7 @@ class Question extends Component {
     return (
       <div className="text-center question col-xs-12">
         {this.getPreviousResult()}
-        <div className="big-character">{this.getShowableQuestion()}</div>
+        <div className="big-character" dir={this.props.rtlMode ? 'rtl' : 'ltr'}>{this.getShowableQuestion()}</div>
         <div className="answer-container">
           {
             this.props.stage<3 ?
@@ -236,7 +236,8 @@ class Question extends Component {
                   className={btnClass}
                   key={idx}
                   answertype={this.getAnswerType()}
-                  handleAnswer={this.handleAnswer} />
+                  handleAnswer={this.handleAnswer}
+                  rtlMode={this.props.rtlMode} />
               })
             : <div className="answer-form-container">
                 <form onSubmit={this.handleSubmit}>
@@ -271,7 +272,7 @@ class AnswerButton extends Component {
 
   render() {
     return (
-      <button className={this.props.className} onClick={()=>this.props.handleAnswer(this.getShowableAnswer())}>{this.getShowableAnswer()}</button>
+      <button className={this.props.className} dir={this.props.rtlMode ? 'rtl' : 'ltr'} onClick={()=>this.props.handleAnswer(this.getShowableAnswer())}>{this.getShowableAnswer()}</button>
     );
   }
 }

@@ -33,7 +33,7 @@ class Game extends Component {
         }
         {
           this.state.showScreen==='question' &&
-            <Question isLocked={this.props.isLocked} handleStageUp={this.stageUp} stage={this.props.stage} decidedGroups={this.props.decidedGroups} />
+            <Question isLocked={this.props.isLocked} handleStageUp={this.stageUp} stage={this.props.stage} decidedGroups={this.props.decidedGroups} rtlMode={this.props.rtlMode} />
         }
       </div>
     );
