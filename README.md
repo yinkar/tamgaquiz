@@ -1,11 +1,17 @@
-# Kana Quiz
-Kana Quiz made with React.js.
+# Tamga Quiz · 𐱅𐰢𐰍𐰀
 
-See live at https://kana.pro/
+Göktürk (Orhon/Yenisey) alfabesini öğrenmek için React.js ile yapılmış quiz uygulaması.
 
+Canlıya bak: https://tamgaquiz.netlify.app/
 
-Install deps: `npm install`
+---
 
-Development: `npm start`
+Bağımlılıkları kur: `npm install`
 
-Production: `npm run build`
+Geliştirme: `npm start`
+
+Prodüksiyon: `npm run build`
+
+---
+
+[kana.pro](https://kana.pro/) projesinin fork'u. Orijinal proje [Antti Pilto](https://github.com/apilto) tarafından MIT lisansı ile yayınlanmıştır.
