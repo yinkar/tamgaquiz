@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Switch from 'react-toggle-switch';
-import { kanaDictionary } from '../../data/kanaDictionary';
+import { tamgaDictionary } from '../../data/tamgaDictionary';
 import './ChooseCharacters.scss';
 import CharacterGroup from './CharacterGroup';
 
@@ -74,29 +74,27 @@ class ChooseCharacters extends Component {
       this.addSelect(groupName);
   }
 
-  selectAll(whichKana, altOnly=false, similarOnly=false) {
-    const thisKana = kanaDictionary[whichKana];
+  selectAll(whichScript, altOnly=false) {
+    const thisScript = tamgaDictionary[whichScript];
     let newSelectedGroups = this.state.selectedGroups.slice();
-    Object.keys(thisKana).forEach(groupName => {
+    Object.keys(thisScript).forEach(groupName => {
       if(!this.isSelected(groupName) && (
         (altOnly && groupName.endsWith('_a')) ||
-        (similarOnly && groupName.endsWith('_s')) ||
-        (!altOnly && !similarOnly)
+        (!altOnly)
       ))
         newSelectedGroups.push(groupName);
     });
     this.setState({errMsg: '', selectedGroups: newSelectedGroups});
   }
 
-  selectNone(whichKana, altOnly=false, similarOnly=false) {
+  selectNone(whichScript, altOnly=false) {
     let newSelectedGroups = [];
     this.state.selectedGroups.forEach(groupName => {
       let mustBeRemoved = false;
-      Object.keys(kanaDictionary[whichKana]).forEach(removableGroupName => {
+      Object.keys(tamgaDictionary[whichScript]).forEach(removableGroupName => {
         if(removableGroupName === groupName && (
           (altOnly && groupName.endsWith('_a')) ||
-          (similarOnly && groupName.endsWith('_s')) ||
-          (!altOnly && !similarOnly)
+          (!altOnly)
         ))
           mustBeRemoved = true;
       });
@@ -106,55 +104,52 @@ class ChooseCharacters extends Component {
     this.setState({selectedGroups: newSelectedGroups});
   }
 
-  toggleAlternative(whichKana, postfix) {
-    let show = postfix == '_a' ? this.state.showAlternatives : this.state.showSimilars;
-    const idx = show.indexOf(whichKana);
+  toggleAlternative(whichScript) {
+    let show = this.state.showAlternatives.slice();
+    const idx = show.indexOf(whichScript);
     if(idx >= 0)
       show.splice(idx, 1);
     else
-      show.push(whichKana)
-    if(postfix == '_a')
-      this.setState({showAlternatives: show});
-    if(postfix == '_s')
-      this.setState({showSimilars: show});
+      show.push(whichScript);
+    this.setState({showAlternatives: show});
   }
 
-  getSelectedAlternatives(whichKana, postfix) {
+  getSelectedAlternatives(whichScript) {
+    const prefix = whichScript === 'orkhon' ? 'o_' : 'y_';
     return this.state.selectedGroups.filter(groupName => {
-      return groupName.startsWith(whichKana == 'hiragana' ? 'h_' : 'k_') &&
-        groupName.endsWith(postfix);
+      return groupName.startsWith(prefix) && groupName.endsWith('_a');
     }).length;
   }
 
-  getAmountOfAlternatives(whichKana, postfix) {
-    return Object.keys(kanaDictionary[whichKana]).filter(groupName => {
-      return groupName.endsWith(postfix);
+  getAmountOfAlternatives(whichScript) {
+    return Object.keys(tamgaDictionary[whichScript]).filter(groupName => {
+      return groupName.endsWith('_a');
     }).length;
   }
 
-  alternativeToggleRow(whichKana, postfix, show) {
+  alternativeToggleRow(whichScript, show) {
     let checkBtn = "glyphicon glyphicon-small glyphicon-"
     let status;
-    if(this.getSelectedAlternatives(whichKana, postfix) >= this.getAmountOfAlternatives(whichKana, postfix))
+    if(this.getSelectedAlternatives(whichScript) >= this.getAmountOfAlternatives(whichScript))
       status = 'check';
-    else if(this.getSelectedAlternatives(whichKana, postfix) > 0)
+    else if(this.getSelectedAlternatives(whichScript) > 0)
       status = 'check half';
     else
       status = 'unchecked'
     checkBtn += status
 
     return <div
-      key={'alt_toggle_' + whichKana + postfix}
-      onClick={() => this.toggleAlternative(whichKana, postfix)}
+      key={'alt_toggle_' + whichScript}
+      onClick={() => this.toggleAlternative(whichScript)}
       className="choose-row"
     >
       <span
         className={checkBtn}
         onClick={ e => {
           if(status == 'check')
-            this.selectNone(whichKana, postfix == '_a', postfix == '_s');
+            this.selectNone(whichScript, true);
           else if(status == 'check half' || status == 'unchecked')
-            this.selectAll(whichKana, postfix == '_a', postfix == '_s');
+            this.selectAll(whichScript, true);
           e.stopPropagation();
         }}
       ></span>
@@ -162,29 +157,26 @@ class ChooseCharacters extends Component {
         show ? <span className="toggle-caret">&#9650;</span>
           : <span className="toggle-caret">&#9660;</span>
       }
-      {
-        postfix == '_a' ? 'Alternative characters (ga · ba · kya..)' :
-          'Look-alike characters'
-      }
+      Küme sesler (lt · nt · nč · aš..)
     </div>
   }
 
-  showGroupRows(whichKana, showAlternatives, showSimilars = false) {
-    const thisKana = kanaDictionary[whichKana];
+  showGroupRows(whichScript, showAlternatives) {
+    const thisScript = tamgaDictionary[whichScript];
     let rows = [];
-    Object.keys(thisKana).forEach((groupName, idx) => {
-      if(groupName == "h_group11_a" || groupName == "k_group13_a")
-        rows.push(this.alternativeToggleRow(whichKana, "_a", showAlternatives));
-      if(groupName == "k_group11_s")
-        rows.push(this.alternativeToggleRow(whichKana, "_s", showSimilars));
+    let altToggleInserted = false;
+    Object.keys(thisScript).forEach((groupName, idx) => {
+      if(groupName.endsWith('_a') && !altToggleInserted) {
+        rows.push(this.alternativeToggleRow(whichScript, showAlternatives));
+        altToggleInserted = true;
+      }
 
-      if((!groupName.endsWith("a") || showAlternatives) &&
-        (!groupName.endsWith("s") || showSimilars)) {
+      if(!groupName.endsWith('_a') || showAlternatives) {
         rows.push(<CharacterGroup
           key={idx}
           groupName={groupName}
           selected={this.isSelected(groupName)}
-          characters={thisKana[groupName].characters}
+          characters={thisScript[groupName].characters}
           handleToggleSelect={this.toggleSelect}
         />);
       }
@@ -195,7 +187,7 @@ class ChooseCharacters extends Component {
 
   startGame() {
     if(this.state.selectedGroups.length < 1) {
-      this.setState({ errMsg: 'Choose at least one group!'});
+      this.setState({ errMsg: 'En az bir grup seçin!'});
       return;
     }
     this.props.handleStartGame(this.state.selectedGroups);
@@ -208,8 +200,9 @@ class ChooseCharacters extends Component {
           <div className="col-xs-12">
             <div className="panel panel-default">
               <div className="panel-body welcome">
-                <h4>Welcome to Kana Pro!</h4>
-                <p>Please choose the groups of characters that you'd like to be studying.</p>
+                <h4>Tamga Quiz'e Hoş Geldiniz!</h4>
+                <p>Çalışmak istediğiniz harf gruplarını seçin.</p>
+                <p className="text-muted" style={{fontSize:'12px'}}>Based on <a href="https://kana.pro" target="_blank" rel="noopener noreferrer">kana.pro</a> by Antti Pilto (MIT)</p>
               </div>
             </div>
           </div>
@@ -217,30 +210,30 @@ class ChooseCharacters extends Component {
         <div className="row">
           <div className="col-sm-6">
             <div className="panel panel-default">
-              <div className="panel-heading">Hiragana · ひらがな</div>
+              <div className="panel-heading">Orhon · 𐰖𐰕𐰸𐰞𐱃</div>
               <div className="panel-body selection-areas">
-                {this.showGroupRows('hiragana', this.state.showAlternatives.indexOf('hiragana') >= 0)}
+                {this.showGroupRows('orkhon', this.state.showAlternatives.indexOf('orkhon') >= 0)}
               </div>
               <div className="panel-footer text-center">
-                <a href="javascript:;" onClick={()=>this.selectAll('hiragana')}>All</a> &nbsp;&middot;&nbsp; <a href="javascript:;"
-                  onClick={()=>this.selectNone('hiragana')}>None</a>
-                &nbsp;&middot;&nbsp; <a href="javascript:;" onClick={()=>this.selectAll('hiragana', true)}>All alternative</a>
-                &nbsp;&middot;&nbsp; <a href="javascript:;" onClick={()=>this.selectNone('hiragana', true)}>No alternative</a>
+                <a href="javascript:;" onClick={()=>this.selectAll('orkhon')}>Tümü</a> &nbsp;&middot;&nbsp; <a href="javascript:;"
+                  onClick={()=>this.selectNone('orkhon')}>Hiçbiri</a>
+                &nbsp;&middot;&nbsp; <a href="javascript:;" onClick={()=>this.selectAll('orkhon', true)}>Tüm kümeler</a>
+                &nbsp;&middot;&nbsp; <a href="javascript:;" onClick={()=>this.selectNone('orkhon', true)}>Küme yok</a>
               </div>
             </div>
           </div>
           <div className="col-sm-6">
             <div className="panel panel-default">
-              <div className="panel-heading">Katakana · カタカナ</div>
+              <div className="panel-heading">Yenisey · 𐰁𐰄𐰅𐰈</div>
               <div className="panel-body selection-areas">
-                {this.showGroupRows('katakana', this.state.showAlternatives.indexOf('katakana') >= 0, this.state.showSimilars.indexOf('katakana') >= 0)}
+                {this.showGroupRows('yenisei', this.state.showAlternatives.indexOf('yenisei') >= 0)}
               </div>
               <div className="panel-footer text-center">
-                <a href="javascript:;" onClick={()=>this.selectAll('katakana')}>All</a> &nbsp;&middot;&nbsp; <a href="javascript:;"
-                  onClick={()=>this.selectNone('katakana')}>None
+                <a href="javascript:;" onClick={()=>this.selectAll('yenisei')}>Tümü</a> &nbsp;&middot;&nbsp; <a href="javascript:;"
+                  onClick={()=>this.selectNone('yenisei')}>Hiçbiri
                 </a>
-                &nbsp;&middot;&nbsp; <a href="javascript:;" onClick={()=>this.selectAll('katakana', true)}>All alternative</a>
-                &nbsp;&middot;&nbsp; <a href="javascript:;" onClick={()=>this.selectNone('katakana', true)}>No alternative</a>
+                &nbsp;&middot;&nbsp; <a href="javascript:;" onClick={()=>this.selectAll('yenisei', true)}>Tüm kümeler</a>
+                &nbsp;&middot;&nbsp; <a href="javascript:;" onClick={()=>this.selectNone('yenisei', true)}>Küme yok</a>
               </div>
             </div>
           </div>
@@ -260,7 +253,7 @@ class ChooseCharacters extends Component {
               this.state.errMsg != '' &&
                 <div className="error-message">{this.state.errMsg}</div>
             }
-            <button ref={c => this.startRef = c} className="btn btn-danger startgame-button" onClick={() => this.startGame()}>Start the Quiz!</button>
+            <button ref={c => this.startRef = c} className="btn btn-danger startgame-button" onClick={() => this.startGame()}>Quiz'i Başlat!</button>
           </div>
           <div className="down-arrow"
             style={{display: this.state.startIsVisible ? 'none' : 'block'}}

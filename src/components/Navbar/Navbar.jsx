@@ -12,10 +12,10 @@ class Navbar extends Component {
                 this.props.gameState == 'game' ? (
                   <li id="nav-choosecharacters">
                     <a href="javascript:;" onClick={this.props.handleEndGame}>
-                      <span className="glyphicon glyphicon-small glyphicon-arrow-left"></span> Back to menu
+                      <span className="glyphicon glyphicon-small glyphicon-arrow-left"></span> Menüye dön
                     </a>
                   </li>
-                ) : <li id="nav-kanaquiz"><p className="nav navbar-text">Kana Pro</p></li>
+                ) : <li id="nav-kanaquiz"><p className="nav navbar-text">Tamga Quiz · 𐱅𐰢𐰍𐰀</p></li>
               }
             </ul>
           </div>

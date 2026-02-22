@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { kanaDictionary } from '../../data/kanaDictionary';
+import { tamgaDictionary } from '../../data/tamgaDictionary';
 import ChooseCharacters from '../ChooseCharacters/ChooseCharacters';
 import Game from '../Game/Game';
 

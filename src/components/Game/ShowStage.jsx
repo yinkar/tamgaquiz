@@ -29,24 +29,24 @@ class ShowStage extends Component {
     let stageDescription;
     let stageSecondaryDescription = false;
 
-    if(this.props.stage==1) stageDescription = 'Choose one';
-    else if(this.props.stage==2) { stageDescription = 'Choose one'; stageSecondaryDescription = 'Reverse'; }
-    else if(this.props.stage==3) stageDescription = 'Write the answer';
-    else if(this.props.stage==4) { stageDescription = 'Write the answer'; stageSecondaryDescription = 'Three at once'; }
+    if(this.props.stage==1) stageDescription = 'Birini seç';
+    else if(this.props.stage==2) { stageDescription = 'Birini seç'; stageSecondaryDescription = 'Ters yön'; }
+    else if(this.props.stage==3) stageDescription = 'Cevabı yaz';
+    else if(this.props.stage==4) { stageDescription = 'Cevabı yaz'; stageSecondaryDescription = 'Üç tamga birden'; }
     else if(this.props.stage==5)
       return (
         <div className="text-center show-end">
-          <h1>Congratulations!</h1>
-          <h3>You have passed all 4 stages.</h3>
-          <h4>Would you like to keep playing or go back to menu?</h4>
-          <p><button className="btn btn-danger keep-playing" onClick={()=>this.props.lockStage(4)}>Keep playing</button></p>
-          <p><button className="btn btn-danger back-to-menu" onClick={this.props.handleEndGame}>Back to menu</button></p>
+          <h1>Tebrikler!</h1>
+          <h3>4 aşamanın tamamını geçtiniz.</h3>
+          <h4>Oynamaya devam etmek ister misiniz?</h4>
+          <p><button className="btn btn-danger keep-playing" onClick={()=>this.props.lockStage(4)}>Devam et</button></p>
+          <p><button className="btn btn-danger back-to-menu" onClick={this.props.handleEndGame}>Menüye dön</button></p>
         </div>
       );
 
     return (
       <div className="text-center show-stage">
-        <h1>Stage {this.props.stage}</h1>
+        <h1>Aşama {this.props.stage}</h1>
         <h3>{stageDescription}</h3>
         { stageSecondaryDescription ? <h4>{stageSecondaryDescription}</h4> : '' }
       </div>
